@@ -1,0 +1,12 @@
+name: NASS
+title:
+username: nass
+account: nass
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12577704
+bundleId: 9053650
+url: https://uky-extension.shinyapps.io/NASS/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
