@@ -5,7 +5,7 @@ account: uk-extension
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 12583394
-bundleId: 9230720
+bundleId: 9266472
 url: https://uk-extension.shinyapps.io/nass/
 version: 1
 asMultiple: FALSE

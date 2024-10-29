@@ -13,7 +13,7 @@ week_table <-  function(df, var, county){
       years = case_when(
         !str_detect(short_desc, "PREVIOUS YEAR") &
           !str_detect(short_desc, "5 YEAR") &
-          year==year(Sys.Date()) ~ "This Year",
+          year==year(Sys.Date()) ~ "This Year", 
         
         str_detect(short_desc, "PREVIOUS YEAR") &
           year == (year(Sys.Date())-1) ~ "Last Year",
@@ -62,7 +62,7 @@ week_graph <- function(df, var, crop){
     mutate(month = month(week_ending, label = T, abbr  = T)) |> 
     select(year, years, month, week, status, Value, `CV (%)`) |> 
     ggplot() +
-    geom_line(aes(x = week, y = Value, color = years), size = 1.1) +
+    geom_line(aes(x = week, y = Value, color = years), linewidth = 1.1) +
     scale_color_manual(values = c("This Year" = "black",
                                   "Last Year" = "cornflowerblue",
                                   "5-Yr(Avg)" = "gold1")) +
@@ -84,7 +84,8 @@ week_graph <- function(df, var, crop){
       x = "Week of year",
       y = "Value",
       title = paste(crop, var),
-      color = ""
+      color = "", 
+      caption = "Data Source: USDA-NASS"
     ) +
     facet_wrap(.~ status, ncol = 3, scales = 'free_x') +
     theme(
@@ -163,7 +164,8 @@ plot_annual <- function(data, voi, state, crop) {
     scale_x_continuous(limits = c(min(data$YEAR, na.rm = T), max(data$YEAR, na.rm = T)),
                        breaks = seq(min(data$YEAR, na.rm = T), max(data$YEAR, na.rm = T)))+
     scale_y_continuous(labels = scales::comma, n.breaks = 5)+
-    labs(y = "", x = "", title = paste(crop, voi, "IN", state))+
+    labs(y = "", x = "", title = paste(crop, voi, "IN", state),
+         caption = "Data Source: USDA-NASS")+
     theme_bw()+
     theme(text = element_text(size = 12, colour = 'black', face = 'bold'), 
           axis.text = element_text(size = 12, colour = 'black', face = 'bold'),
@@ -231,13 +233,15 @@ sf_plot <- function(data, state, voi, year){
                            labels = scales::label_comma()) +
       labs(fill = "", title =voi,
            x = "Latitude", y = "Longitude",
-           caption = "\nGray color indicates the data has not been reported yet!") +
+           caption = "Data Source: USDA-NASS\nThe gray shade indicates areas with missing or unreported data") +
       theme_bw() +
       theme(legend.position = "right",
             text = element_text(size = 14, colour = 'black', face = 'bold',
                                 family = 'serif'),
-            axis.title = element_text(size = 16, colour = 'black', face = 'bold'),
-            #axis.text = element_text(size = 16, colour = 'black', face = 'bold'),
+            axis.title = element_blank(),
+            axis.text = element_blank(),
+            axis.ticks = element_blank(), 
+            panel.grid = element_blank(),
             plot.title.position = "panel") +
       coord_sf(crs = st_crs(4326), lims_method = "geometry_bbox")
     
