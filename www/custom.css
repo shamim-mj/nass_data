@@ -1,0 +1,62 @@
+/* Set the body background color */
+body {
+  background-color: #f8f9fa; /* Light grey background */
+}
+
+/* Set navbar background color */
+.navbar {
+  background-color: #003366; /* UK blue */
+  border-color: #003366;
+}
+
+/* Set text color for main navbar items */
+.navbar .navbar-nav > li > a {
+  color: white;
+}
+
+/* Hover effect: change text to yellow, keep background color consistent */
+.navbar .navbar-nav > li > a:hover {
+  color: #FFF700; /* Yellow text on hover */
+  background-color: #003366; /* Same background color to avoid highlight */
+}
+
+/* Set background and text color for dropdown menu */
+.navbar .navbar-nav .dropdown-menu {
+  background-color: #003366;
+  color: yellow;
+}
+
+/* Set text color for dropdown items */
+.navbar .navbar-nav .dropdown-menu > li > a {
+  color: white;
+}
+
+/* Change hover color for dropdown items */
+.navbar .navbar-nav .dropdown-menu > li > a:hover {
+  background-color: #00509E; /* Lighter blue on hover */
+  color: #FFF700; /* Yellow text on hover for dropdown items */
+}
+
+/* Tab panel styling */
+.nav-tabs {
+  border-bottom: 2px solid #003366; /* Border color for tabs */
+}
+
+.nav-tabs > li > a {
+  color: white; /* Tab text color */
+  background-color: #003366; /* Tab background color */
+}
+
+.nav-tabs > li > a:hover {
+  color: #FFF700; /* Yellow text on hover */
+}
+
+.nav-tabs > li.active > a {
+  color: #FFF700; /* Yellow color for active tab */
+  background-color: #003366; /* Same background color as the navbar */
+}
+
+.tab-content {
+  background-color: white; /* Background color for tab content */
+  padding: 15px; /* Padding inside tab content */
+}

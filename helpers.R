@@ -175,32 +175,6 @@ plot_annual <- function(data, voi, state, crop) {
 }
 
 
-
-# annual_table_county <- function(df, start_year, stop_year) {
-#       
-#   df %>%
-#         filter(reference_period_desc == "YEAR" & year %in% c(start_year:stop_year)) %>% # it considers year only not time point
-#         mutate(full_season = ifelse(str_detect(short_desc, "DOUBLE"),
-#                                     "Double Crop", "Full Season"),
-#                y_var = paste0(statisticcat_desc, " (", unit_desc, ")"),
-#                y_var = ifelse(commodity_desc =="SOYBEANS" & y_var == "AREA PLANTED (PCT)",
-#                               "ACRES PLANTED (%; DOUBLE CROP)", y_var),
-#                Value = as.numeric(str_replace_all(Value, ",", ""))) |> # round the number
-#         select(YEAR = year, STATE = state_alpha, COUNTY = county_name, y_var, full_season, Value) |>
-#         pivot_wider(id_cols = c(YEAR, STATE, COUNTY), values_fn = mean, names_from = y_var,values_from = Value) |> 
-#         arrange(YEAR, COUNTY)|> 
-#         mutate( across(where(is.numeric), round)) |> 
-#     select(YEAR, STATE, "AREA PLANTED (ACRES)",
-#            #"AREA HARVESTED (ACRES)" ,
-#            "YIELD (BU / ACRE)", "PRODUCTION (BU)",
-#            "ACRES PLANTED (%; DOUBLE CROP)",
-#            "PRODUCTION ($)" )
-# }
-
-# annual_table_county(data$data) |> View()
-# annual_table_state(data$data) |> view()
-# it plots spatial data---------------------------------------------------------
-
 sf_plot <- function(data, state, voi, year){
     
     # Load spatial data for counties
@@ -250,6 +224,4 @@ sf_plot <- function(data, state, voi, year){
 
 
 #sf_plot(data$data, "KY", "AREA PLANTED (ACRES)", 2022)
-
-
 

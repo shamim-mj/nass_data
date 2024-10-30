@@ -15,11 +15,11 @@ server <- function(input, output, session) {
 
    #weekly table -------------------------------------------------------
   # weekly table -------------------------------------------------------
+  
   nass_data <- reactive({
     # Read the API key from the environment variable
     # api_key <-Sys.getenv("NASS_API_KEY") # "39B010C2-1084-369B-A35B-187D918F1EB3"
     api_key <-"39B010C2-1084-369B-A35B-187D918F1EB3"
-    
     # Check if the API key was read correctly
     if (api_key == "") {
       stop("API key not found. Please set the NASS_API_KEY environment variable.")
@@ -60,15 +60,6 @@ server <- function(input, output, session) {
                        agg_level_desc = "STATE",
                        state_alpha = input$annual_state
                      ),
-                     # "tabular_annual_county" = list(
-                     #   key = api_key,
-                     #   commodity_desc = input$crop_at_county,
-                     #   year__GE = input$annual_county_slide[1],
-                     #   year__LE = input$annual_county_slide[2],
-                     #   freq_desc = "ANNUAL",
-                     #   agg_level_desc = "COUNTY",
-                     #   state_alpha = input$annual_county
-                     # ),
                      "chart_annual" = list(
                        source_desc = "SURVEY",
                        key = api_key,
@@ -93,10 +84,12 @@ server <- function(input, output, session) {
                        agg_level_desc = "COUNTY",
                        state_alpha = input$spatial_annual_state
                      )
+
+                     
     )
     
     # Debugging: Print the params to verify
-    # print(params)
+     
     
     # Send the request to the API
     response <- GET(base_url, query = params)
@@ -114,8 +107,6 @@ server <- function(input, output, session) {
       return(NULL) # Return NULL if the request fails
     }
   })
-  
-  
 
     
     
@@ -164,14 +155,7 @@ server <- function(input, output, session) {
     }
   )
   
-  #---------weekly spatial--------------
-  # 
-  ### note that we do not have weekly data reported for each county. 
-  # output$weekly_sp_plot <- renderPlot({
-  #   if(input$main == "spatial_weekly"){
-  #     sf_plot(input$spatial_weekly_state, input$spatial_weekly_county)
-  #   }
-  # })
+ 
   
 #########################---------------------##################################
 ######################### Monthly settings----##################################
@@ -195,20 +179,7 @@ server <- function(input, output, session) {
         write.csv(annual_table_state(nass_data(),input$annual_state_slide[1], input$annual_state_slide[2]), file, row.names = F, na ="")
       })
   
-  #county level data
-  # output$annual_report_county <- renderDT({
-  #   annual_table_county(nass_data(), input$annual_county_slide[1], input$annual_county_slide[2])
-  # })
-  # 
-  # # download the data
-  # output$downloadDataAnnualCounty <- downloadHandler(
-  #   filename = function(){
-  #     paste("Annual-County-Level-Date", now(), ".csv", sep = "")},
-  #   content = function(file) {
-  #     write.csv(annual_table_county(nass_data()), file, row.names = F, na ="")
-  #   })
-  # 
-  
+
   
   #---------Annual charts---------------
   output$annual_plot <- renderPlot({
@@ -241,57 +212,7 @@ server <- function(input, output, session) {
   })
   
   
-  
-  ##################------------------------------------#######################
-  ##################
-  ##################
-  ################## the following functions are used to supplement UI county
-  ##################
-  ##################
-  ##################-----------------------------------#########################
-  ##################
-  ##################
-  ##################
-  
-  
-  #### weekly data for condition and progress is not reported
-  #### 
-  #### 
-  
-  
-  
-  
-  # observeEvent(input$weekly_state, {
-  #   selected_state <- input$weekly_state
-  #   counties_in_state <- counties |>
-  #     filter(state_abbv == selected_state) |>
-  #     pull(county_name)
-  #   
-  #   updateSelectInput(session, "weekly_county", choices = c("All",counties_in_state))
-  # })
-  # 
-  
-  # 
-  # observeEvent(input$chart_weekly_state, {
-  #   selected_state <- input$chart_weekly_state
-  #   counties_in_state <- counties |>
-  #     filter(state_abbv == selected_state) |>
-  #     pull(county_name)
-  #   
-  #   updateSelectInput(session, "chart_weekly_county", choices = c("All",counties_in_state))
-  # })
-  # 
-  
-
-  # observeEvent(input$spatial_weekly_state, {
-  #   selected_state <- input$spatial_weekly_state
-  #   counties_in_state <- counties |>
-  #     filter(state_abbv == selected_state) |>
-  #     pull(county_name)
-  #   
-  #   updateSelectInput(session, "spatial_weekly_county", choices = c("All",counties_in_state))
-  # })
-  # 
+ 
   observeEvent(input$monthly_state, {
     selected_state <- input$monthly_state
     counties_in_state <- counties |>
@@ -318,42 +239,6 @@ server <- function(input, output, session) {
     
     updateSelectInput(session, "spatial_monthly_county", choices = c("All",counties_in_state))
   })
-  
-  # observeEvent(input$annual_state, {
-  #   selected_state <- input$annual_state
-  #   counties_in_state <- counties |>
-  #     filter(state_abbv == selected_state) |>
-  #     pull(county_name)
-  #   
-  #   updateSelectInput(session, "annual_county", choices = c("All",counties_in_state))
-  # })
-  
-# 
-#   observeEvent(input$spatial_annual_state, {
-#     vois <- data$data |>
-#       mutate(status = paste0(statisticcat_desc, " (", unit_desc, ")")) |>
-#       distinct(status) |>
-#       pull(status)
-# 
-#     updateSelectInput(session, "spatial_annual_voi", choices = vois)
-#   })
-
-
-  
-  # observeEvent(input$spatial_annual_state, {
-  #   selected_state <- input$spatial_annual_state
-  #   counties_in_state <- counties |>
-  #     filter(state_abbv == selected_state) |>
-  #     pull(county_name)
-  #   
-  #   updateSelectInput(session, "spatial_annual_county", choices = c("All",counties_in_state))
-  # })
-  
-
-  
-  
-  
-  
   
   
 } # closing server function 
